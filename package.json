@@ -1,5 +1,5 @@
 {
-  "name": "monaco-editor-auto-typings-root",
+  "name": "@waylay/monaco-editor-auto-typings-root",
   "version": "0.0.1",
   "repository": {
     "type": "git",
@@ -9,21 +9,22 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "lerna run start --parallel --npm-client=yarn",
-    "start-demo": "lerna run start-demo --parallel --npm-client=yarn",
-    "build-demo": "lerna run build-demo --npm-client=yarn --stream",
-    "build": "lerna run build --npm-client=yarn --stream",
-    "build-doc": "lerna run build-doc --npm-client=yarn --stream",
+    "start": "lerna run start --parallel",
+    "start-demo": "lerna run start-demo --parallel",
+    "build-demo": "lerna run build-demo --stream",
+    "build": "lerna run build --stream",
+    "build-doc": "lerna run build-doc --stream",
     "copy-readme": "copy-cli ./README.md ./packages/core",
-    "test": "lerna run test --npm-client=yarn --stream",
+    "test": "lerna run test --stream",
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",
     "prepublish": "yarn build && yarn copy-readme"
   },
   "devDependencies": {
-    "lerna": "^3.22.1",
-    "prettier": "^2.2.1",
-    "copy": "^0.3.2"
+    "@octokit/core": "^4.1.0",
+    "copy": "^0.3.2",
+    "lerna": "^6.0.3",
+    "prettier": "^2.7.1"
   },
   "workspaces": [
     "packages/*"

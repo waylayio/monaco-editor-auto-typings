@@ -1,5 +1,5 @@
 {
-  "name": "monaco-editor-auto-typings",
+  "name": "@waylay/monaco-editor-auto-typings",
   "version": "0.4.2",
   "repository": {
     "type": "git",
@@ -19,8 +19,9 @@
     "monaco-editor": "*"
   },
   "devDependencies": {
-    "monaco-editor": "^0.33.0",
-    "typedoc": "^0.22.13",
-    "typescript": "^4.6.2"
+    "monaco-editor": "^0.34.1",
+    "process": "^0.11.10",
+    "typedoc": "^0.23.21",
+    "typescript": "^4.8.4"
   }
 }

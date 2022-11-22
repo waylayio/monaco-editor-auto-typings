@@ -26,8 +26,11 @@ export class AutoTypingsCore implements monaco.IDisposable {
     this.disposables.push(changeModelDisposable);
     this.resolveContents();
     if (!options.dontAdaptEditorOptions) {
-      options.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-        ...options.monaco.languages.typescript.typescriptDefaults.getCompilerOptions(),
+      const languageDefaults: string = `${options.language}Defaults`;
+      // @ts-ignore
+      options.monaco.languages.typescript[languageDefaults].setCompilerOptions({
+        // @ts-ignore
+        ...options.monaco.languages.typescript[languageDefaults].getCompilerOptions(),
         moduleResolution: options.monaco.languages.typescript.ModuleResolutionKind.NodeJs,
         allowSyntheticDefaultImports: true,
         rootDir: options.fileRootPath,
@@ -57,6 +60,7 @@ export class AutoTypingsCore implements monaco.IDisposable {
       sourceResolver: new UnpkgSourceResolver(),
       debounceDuration: 4000,
       fileRecursionDepth: 10,
+      language: 'typescript',
       packageRecursionDepth: 3,
       ...options,
       monaco: monacoInstance,

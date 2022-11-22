@@ -127,6 +127,13 @@ export interface Options {
   fileRecursionDepth: number;
 
   /**
+   * Editor supported language.
+   *
+   * Defaults to typescript.
+   */
+  language: string;
+
+  /**
    * Called after progress updates like loaded declarations or events.
    * @param update detailed event object containing update infos.
    * @param textual a textual representation of the update for debugging.

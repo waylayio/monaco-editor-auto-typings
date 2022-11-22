@@ -15,6 +15,10 @@ import * as path from 'path';
 import { invokeUpdate } from './invokeUpdate';
 import { RecursionDepth } from './RecursionDepth';
 
+const beginCommentRegex = /^\s*\/\*\*.*/;
+const commentRegex = /^\s*\*.*/;
+const importRegex = /^\s*import.*/;
+
 export class ImportResolver {
   private loadedFiles: string[];
   private dependencyParser: DependencyParser;
@@ -22,6 +26,7 @@ export class ImportResolver {
   private sourceResolver: SourceResolver;
   private versions?: { [packageName: string]: string };
   private newImportsResolved: boolean;
+  private language: string;
   private monaco: typeof monaco;
 
   constructor(private options: Options) {
@@ -30,6 +35,7 @@ export class ImportResolver {
     this.cache = options.sourceCache;
     this.sourceResolver = options.sourceResolver;
     this.newImportsResolved = false;
+    this.language = options.language;
     this.monaco = options.monaco!;
 
     if (options.preloadPackages && options.versions) {
@@ -129,12 +135,12 @@ export class ImportResolver {
       success: false,
     } as const;
 
-    if (this.options.onlySpecifiedPackages) {
-      if (!this.versions?.[importResource.packageName] && !this.versions?.['@types/' + importResource.packageName]) {
-        invokeUpdate(failedProgressUpdate, this.options);
-        return;
-      }
-    }
+    // if (this.options.onlySpecifiedPackages) {
+    //   if (!this.versions?.[importResource.packageName] && !this.versions?.['@types/' + importResource.packageName]) {
+    //     invokeUpdate(failedProgressUpdate, this.options);
+    //     return;
+    //   }
+    // }
 
     const doesPkgJsonHasSubpath = importResource.importPath?.length ?? 0 > 0;
     let pkgJsonSubpath = doesPkgJsonHasSubpath ? `/${importResource.importPath}` : '';
@@ -243,11 +249,35 @@ export class ImportResolver {
     let appends = ['.d.ts', '/index.d.ts', '.ts', '.tsx', '/index.ts', '/index.tsx'];
 
     if (appends.map(append => importResource.importPath.endsWith(append)).reduce((a, b) => a || b, false)) {
-      const source = await this.resolveSourceFile(
+      let source = await this.resolveSourceFile(
         pkgName,
         version,
         path.join(importResource.sourcePath, importResource.importPath)
       );
+
+      console.log(`<loadSourceFileContents> Import resource:`, importResource);
+      if (source && this.options.language === 'javascript') {
+        source = `declare namespace "${pkgName}" {
+            ${source
+              .split(/\r?\n/)
+              .filter(
+                (line: string) => !commentRegex.test(line) && !beginCommentRegex.test(line) && !importRegex.test(line)
+              )
+              .map((line: string) =>
+                line
+                  .replaceAll('export {};', '')
+                  .replaceAll('export class', 'declare class')
+                  .replaceAll('export default class', 'declare class')
+                  .replaceAll(/export default (.*);/g, '')
+                  .replaceAll('export type', 'type')
+                  .replaceAll('export interface', 'interface')
+                  .replaceAll('export declare', 'declare')
+              )
+              .join('\r\n')}
+        }`;
+      }
+
+      //console.log(`<loadSourceFileContents> Source:`, source);
       if (source) {
         return { source, at: path.join(importResource.sourcePath, importResource.importPath) };
       }
@@ -326,7 +356,9 @@ export class ImportResolver {
   private createModel(source: string, uri: monaco.Uri) {
     uri = uri.with({ path: uri.path.replace('@types/', '') });
     if (!this.monaco.editor.getModel(uri)) {
-      this.monaco.editor.createModel(source, 'typescript', uri);
+      this.monaco.editor.createModel(source, this.language, uri);
+      console.log(`Added model for ${uri}`);
+      // this.monaco.languages.typescript.javascriptDefaults.addExtraLib(source)
       this.newImportsResolved = true;
     }
   }

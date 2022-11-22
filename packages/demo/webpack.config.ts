@@ -1,9 +1,15 @@
 import * as path from 'path';
-import * as webpack from 'webpack';
+import { Configuration as WebpackConfiguration } from 'webpack';
+import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
+
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
 
-const config: webpack.Configuration = {
+interface Configuration extends WebpackConfiguration {
+  devServer?: WebpackDevServerConfiguration;
+}
+
+const config: Configuration = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
     mainFields: ['main', 'module', 'browser'],

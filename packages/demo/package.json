@@ -1,5 +1,5 @@
 {
-  "name": "monaco-editor-auto-typings-demo",
+  "name": "@waylay/monaco-editor-auto-typings-demo",
   "version": "0.4.2",
   "license": "MIT",
   "private": true,
@@ -10,25 +10,24 @@
     "build-demo": "../../node_modules/.bin/cross-env NODE_ENV=production webpack --config webpack.config.ts --mode production"
   },
   "devDependencies": {
-    "@types/node": "^17.0.21",
-    "@types/webpack": "^4.41.25",
-    "@types/webpack-dev-server": "~4.5.1",
+    "@types/node": "^18.11.9",
+    "@types/webpack": "^5.28.0",
     "cross-env": "^7.0.3",
-    "css-loader": "^6.7.1",
+    "css-loader": "^6.7.2",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "monaco-editor-webpack-plugin": "^7.0.1",
     "path-browserify": "^1.0.1",
     "style-loader": "^3.3.1",
-    "ts-loader": "^9.2.8",
-    "ts-node": "^10.7.0",
-    "typescript": "^4.6.2",
-    "webpack": "^5.70.0",
-    "webpack-cli": "4.9.2",
-    "webpack-dev-server": "^4.7.4"
+    "ts-loader": "^9.4.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.0",
+    "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-    "monaco-editor": "^0.33.0",
-    "monaco-editor-auto-typings": "^0.4.2"
+    "monaco-editor": "^0.34.1",
+    "@waylay/monaco-editor-auto-typings": "^0.4.2"
   }
 }

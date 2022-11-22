@@ -1,32 +1,23 @@
-# monaco-editor-auto-typings
+# @waylay/monaco-editor-auto-typings
 
-![Main](https://github.com/lukasbach/monaco-editor-auto-typings/workflows/Main/badge.svg)
-
-> View the demo at [lukasbach.github.io/monaco-editor-auto-typings](https://lukasbach.github.io/monaco-editor-auto-typings/)
-
-monaco-editor-auto-typings is a plugin for [Microsoft's Monaco Editor](https://microsoft.github.io/monaco-editor/),
+@waylay/monaco-editor-auto-typings is a plugin for [Microsoft's Monaco Editor](https://microsoft.github.io/monaco-editor/),
 which automatically loads type declarations when you enter import-calls in the code editor.
 
 Try it out in the [demo](https://lukasbach.github.io/monaco-editor-auto-typings/)! Add some imports to some
 libraries available on npm, such as `import express from 'express';`, and see that any imported variables
 are automatically strictly typed.
 
-monaco-editor-auto-typings comes with lots of customization options, but is still a one-liner to
+@waylay/monaco-editor-auto-typings comes with lots of customization options, but is still a one-liner to
 add to your project. It works by loading declarations from UnPkg. They can then be optionally
 cached in localStorage or elsewhere.
 
-- Demo: [lukasbach.github.io/monaco-editor-auto-typings](https://lukasbach.github.io/monaco-editor-auto-typings/)
-- Documentation: [lukasbach.github.io/monaco-editor-auto-typings/docs](https://lukasbach.github.io/monaco-editor-auto-typings/docs/)
-
-![Example image](https://raw.githubusercontent.com/lukasbach/monaco-editor-auto-typings/HEAD/screenshot.png)
-
 ## Example
 
-Install via `yarn add monaco-editor-auto-typings monaco-editor` or `npm install monaco-editor-auto-typings monaco-editor --save`.
+Install via `yarn add @waylay/monaco-editor-auto-typings monaco-editor` or `npm install @waylay/monaco-editor-auto-typings monaco-editor --save`.
 
 ```typescript
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
-import { AutoTypings, LocalStorageCache } from 'monaco-editor-auto-typings';
+import { AutoTypings, LocalStorageCache } from '@waylay/monaco-editor-auto-typings';
 
 const val = `
 import React from 'react';
@@ -52,8 +43,6 @@ const autoTypings = await AutoTypings.create(editor, {
   are not affected and work fine.
 
 ## Configuration
-
-https://lukasbach.github.io/monaco-editor-auto-typings/docs/interfaces/options.html
 
 ```typescript
 export interface Options {
@@ -169,6 +158,13 @@ export interface Options {
    * Defaults to 10.
    */
   fileRecursionDepth: number;
+
+  /**
+   * Editor supported language.
+   *
+   * Defaults to typescript.
+   */
+  language: string;
 
   /**
    * Called after progress updates like loaded declarations or events.
