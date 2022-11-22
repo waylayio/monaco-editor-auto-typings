@@ -14,7 +14,7 @@
     "build-demo": "lerna run build-demo --stream",
     "build": "lerna run build --stream",
     "build-doc": "lerna run build-doc --stream",
-    "copy-readme": "copy-cli ./README.md ./packages/core",
+    "copy-readme": "cpy ./README.md ./packages/core",
     "test": "lerna run test --stream",
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",
@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@octokit/core": "^4.1.0",
-    "copy": "^0.3.2",
+    "cpy-cli": "^4.2.0",
     "lerna": "^6.0.3",
     "prettier": "^2.7.1"
   },
