@@ -1,6 +1,6 @@
 {
   "name": "@waylay/monaco-editor-auto-typings-root",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "git@github.com:lukasbach/monaco-editor-auto-typings.git"
@@ -10,10 +10,7 @@
   "private": true,
   "scripts": {
     "start": "lerna run start --parallel",
-    "start-demo": "lerna run start-demo --parallel",
-    "build-demo": "lerna run build-demo --stream",
     "build": "lerna run build --stream",
-    "build-doc": "lerna run build-doc --stream",
     "copy-readme": "cpy ./README.md ./packages/core",
     "test": "lerna run test --stream",
     "prettier:check": "prettier --check .",
@@ -21,10 +18,10 @@
     "prepublish": "yarn build && yarn copy-readme"
   },
   "devDependencies": {
-    "@octokit/core": "^4.1.0",
+    "@octokit/core": "^4.2.0",
     "cpy-cli": "^4.2.0",
-    "lerna": "^6.0.3",
-    "prettier": "^2.7.1"
+    "lerna": "^6.5.1",
+    "prettier": "^2.8.4"
   },
   "workspaces": [
     "packages/*"
