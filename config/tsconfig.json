@@ -13,6 +13,9 @@
     "resolveJsonModule": true,
     "isolatedModules": false,
     "jsx": "react",
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "types": [
+      "node"
+    ]
   }
 }
